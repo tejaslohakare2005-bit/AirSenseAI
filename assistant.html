@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Smart Assistant</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: linear-gradient(to right, #1e3c72, #2a5298);
+      color: white;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .chat-box {
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 15px;
+      max-width: 500px;
+      margin: auto;
+      backdrop-filter: blur(10px);
+    }
+
+    input {
+      padding: 10px;
+      width: 70%;
+      border-radius: 8px;
+      border: none;
+    }
+
+    button {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      background: orange;
+      color: white;
+      cursor: pointer;
+    }
+
+    #response {
+      margin-top: 20px;
+      text-align: left;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>💬 AirSense AI+ Assistant</h1>
+
+<div class="chat-box">
+
+  <p id="autoAdvice">---</p>
+
+  <input type="text" id="query" placeholder="Ask anything..."
+         onkeypress="if(event.key==='Enter') askAI()">
+  <button onclick="askAI()">Ask</button>
+
+  <div id="response"></div>
+
+</div>
+
+<script src="assistant.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Agriculture Mode</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: linear-gradient(135deg, #134e5e, #71b280);
+  color: white;
+  text-align: center;
+  padding: 40px;
+}
+
+.card {
+  background: rgba(255,255,255,0.1);
+  padding: 25px;
+  border-radius: 20px;
+  max-width: 450px;
+  margin: auto;
+  backdrop-filter: blur(10px);
+}
+
+.aqi {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.badge {
+  padding: 8px 15px;
+  border-radius: 10px;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+.green { background: #2ecc71; }
+.yellow { background: #f1c40f; color:black; }
+.orange { background: #e67e22; }
+.red { background: #e74c3c; }
+
+ul {
+  text-align: left;
+  margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🌾 Agriculture Advisor</h1>
+
+<div class="card">
+  <div class="aqi" id="aqiValue"></div>
+  <div id="riskBadge" class="badge"></div>
+
+  <h3 id="advice"></h3>
+
+  <ul id="tips"></ul>
+</div>
+
+<script>
+const aqi = parseInt(new URLSearchParams(window.location.search).get("aqi"));
+
+function getRisk(aqi){
+ if(aqi<=50) return ["Low","green"];
+ if(aqi<=100) return ["Moderate","yellow"];
+ if(aqi<=150) return ["High","orange"];
+ return ["Danger","red"];
+}
+
+const [risk, color] = getRisk(aqi);
+
+document.getElementById("aqiValue").innerText = aqi;
+document.getElementById("riskBadge").innerText = risk;
+document.getElementById("riskBadge").classList.add(color);
+
+let advice = "";
+let tips = [];
+
+if(aqi<=50){
+  advice = "🌱 Ideal farming conditions";
+  tips = ["Safe for spraying", "Good soil activity", "Healthy crop growth"];
+}
+else if(aqi<=100){
+  advice = "🌿 Moderate farming conditions";
+  tips = ["Monitor crops", "Avoid long exposure", "Check wind direction"];
+}
+else if(aqi<=150){
+  advice = "⚠️ Risky for agriculture";
+  tips = ["Avoid pesticide spraying", "Limit field work", "Wear protection"];
+}
+else{
+  advice = "🚫 Unsafe farming conditions";
+  tips = ["Stop outdoor work", "Protect crops", "Avoid exposure"];
+}
+
+document.getElementById("advice").innerText = advice;
+
+document.getElementById("tips").innerHTML =
+  tips.map(t => `<li>✔ ${t}</li>`).join("");
+</script>
+
+</body>
+</html>

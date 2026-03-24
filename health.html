@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Health Mode</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: linear-gradient(135deg, #2a5298, #1e3c72);
+  color: white;
+  text-align: center;
+  padding: 40px;
+}
+
+.card {
+  background: rgba(255,255,255,0.1);
+  padding: 25px;
+  border-radius: 20px;
+  max-width: 450px;
+  margin: auto;
+}
+
+.aqi { font-size: 50px; }
+
+.badge {
+  padding: 8px 15px;
+  border-radius: 10px;
+}
+
+.green { background:#2ecc71; }
+.yellow { background:#f1c40f; color:black; }
+.orange { background:#e67e22; }
+.red { background:#e74c3c; }
+
+ul { text-align:left; margin-top:20px; }
+</style>
+</head>
+
+<body>
+
+<h1>🫁 Health Advisory</h1>
+
+<div class="card">
+  <div class="aqi" id="aqiValue"></div>
+  <div id="riskBadge" class="badge"></div>
+
+  <h3 id="advice"></h3>
+  <ul id="tips"></ul>
+</div>
+
+<script>
+const aqi = parseInt(new URLSearchParams(window.location.search).get("aqi"));
+
+function getRisk(aqi){
+ if(aqi<=50) return ["Low","green"];
+ if(aqi<=100) return ["Moderate","yellow"];
+ if(aqi<=150) return ["High","orange"];
+ return ["Danger","red"];
+}
+
+const [risk,color] = getRisk(aqi);
+
+document.getElementById("aqiValue").innerText = aqi;
+document.getElementById("riskBadge").innerText = risk;
+document.getElementById("riskBadge").classList.add(color);
+
+let advice="";
+let tips=[];
+
+if(aqi<=100){
+ advice="💚 Safe for most people";
+ tips=["Normal outdoor activity","Stay hydrated","Good air quality"];
+}else{
+ advice="😷 Health risk detected";
+ tips=["Wear mask","Avoid outdoor exposure","Use air purifier","Sensitive groups stay indoors"];
+}
+
+document.getElementById("advice").innerText=advice;
+document.getElementById("tips").innerHTML =
+ tips.map(t=>`<li>✔ ${t}</li>`).join("");
+</script>
+
+</body>
+</html>

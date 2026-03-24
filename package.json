@@ -1,0 +1,17 @@
+{
+  "name": "airsense-backend",
+  "version": "1.0.0",
+  "description": "AirSense AI Backend Server",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Tejas",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "node-fetch": "^3.3.2"
+  }
+}
